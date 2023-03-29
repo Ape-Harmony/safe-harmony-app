@@ -31,7 +31,7 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
     autoMine: true,
   });
 
-  await deploy("SafeManage", {
+  await deploy("SafeManager", {
     from: deployer,
     // Contract constructor arguments
     args: [],
