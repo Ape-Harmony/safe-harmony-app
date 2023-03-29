@@ -1,0 +1,15 @@
+{
+  "hosting": {
+    "public": "public",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "redirects": [ {
+      "source": "**",
+      "destination": "https://apeharmony.vercel.app/",
+      "type": 302
+    }]
+  }
+}

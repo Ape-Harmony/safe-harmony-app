@@ -1,0 +1,165 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+:root,
+.tablestyle-mother {
+  --blur-colors-black800: #080404;
+  --blur-colors-black1000: #000;
+  --blur-colors-gray100: #d9d9d9;
+  --blur-colors-gray200: #c1c1c1;
+  --blur-colors-gray300: #929292;
+  --blur-colors-gray600: #303030;
+  --blur-colors-gray700: #1e1e1e;
+  --blur-colors-green300: #ade25d;
+  --blur-colors-orange200: #ff8700;
+  --blur-colors-orange400: #f95200;
+  --blur-colors-orange500: #aa3d07;
+  --blur-colors-white1000: #fff;
+  --blur-colors-yellow300: #f6ae2d;
+  --blur-borderWidths-xs: 2px;
+  --blur-borderWidths-sm: 4px;
+  --blur-borderWidths-md: 8px;
+  --blur-borderWidths-lg: 16px;
+  --blur-fonts-heading: Proto Mono, Helvetica, Arial, sans-serif;
+  --blur-fonts-text: Proto Mono, Helvetica, Arial, sans-serif;
+  --blur-fontSizes-xs: 12px;
+  --blur-fontSizes-sm: 14px;
+  --blur-fontSizes-md: 16px;
+  --blur-fontSizes-lg: 18px;
+  --blur-fontSizes-xl: 20px;
+  --blur-fontSizes-xl2: 24px;
+  --blur-fontSizes-xl3: 28px;
+  --blur-fontSizes-xl4: 32px;
+  --blur-fontSizes-xl5: 36px;
+  --blur-fontSizes-xl6: 48px;
+  --blur-fontSizes-xl7: 56px;
+  --blur-fontSizes-xl8: 64px;
+  --blur-lineHeights-xs: 16px;
+  --blur-lineHeights-sm: 20px;
+  --blur-lineHeights-md: 24px;
+  --blur-lineHeights-lg: 28px;
+  --blur-lineHeights-xl: 28px;
+  --blur-lineHeights-xl2: 32px;
+  --blur-lineHeights-xl3: 36px;
+  --blur-lineHeights-xl4: 40px;
+  --blur-lineHeights-xl5: 1;
+  --blur-lineHeights-xl6: 1.2;
+  --blur-lineHeights-xl7: 1.4;
+  --blur-lineHeights-xl8: 1.6;
+  --blur-lineHeights-xl9: 1.8;
+  --blur-radii-xs: 2px;
+  --blur-radii-sm: 4px;
+  --blur-radii-md: 8px;
+  --blur-radii-lg: 16px;
+  --blur-shadows-black800: #080404;
+  --blur-shadows-black1000: #000;
+  --blur-shadows-gray100: #d9d9d9;
+  --blur-shadows-gray200: #c1c1c1;
+  --blur-shadows-gray300: #929292;
+  --blur-shadows-gray600: #303030;
+  --blur-shadows-gray700: #1e1e1e;
+  --blur-shadows-green300: #ade25d;
+  --blur-shadows-orange200: #ff8700;
+  --blur-shadows-orange400: #f95200;
+  --blur-shadows-orange500: #aa3d07;
+  --blur-shadows-white1000: #fff;
+  --blur-shadows-yellow300: #f6ae2d;
+  --blur-space-xs: 4px;
+  --blur-space-sm: 8px;
+  --blur-space-md: 12px;
+  --blur-space-lg: 16px;
+  --blur-space-xl: 24px;
+  --blur-space-xl2: 32px;
+  --blur-space-xl3: 64px;
+  --blur-space-xl4: 96px;
+  --blur-space-xl5: 128px;
+  --blur-space-gutterMobile: 20px;
+  --blur-sizes-1: 4px;
+  --blur-sizes-2: 8px;
+  --blur-sizes-3: 16px;
+  --blur-sizes-4: 32px;
+  --blur-sizes-5: 64px;
+  --blur-sizes-6: 128px;
+  --blur-sizes-xs: 4px;
+  --blur-sizes-sm: 8px;
+  --blur-sizes-md: 16px;
+  --blur-sizes-lg: 32px;
+  --blur-sizes-xl: 64px;
+  --blur-sizes-xl2: 128px;
+  --blur-body-backgroundColorPrimary: var(--blur-colors-black800);
+  --blur-body-textColorPrimary: var(--blur-colors-gray200);
+  --blur-heading-color: var(--blur-colors-orange200);
+  --blur-header-color: var(--blur-colors-orange200);
+}
+
+:root,
+[data-theme] {
+  background: hsl(var(--b2));
+}
+
+body {
+  min-height: 100vh;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  margin-bottom: 0.5rem;
+  line-height: 1;
+}
+
+p {
+  margin: 1rem 0;
+}
+
+.tablestyle-1 {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 100%;
+}
+
+.tablestyle-2 {
+  padding-left: var(--blur-space-md);
+  padding-right: var(--blur-space-md);
+}
+
+.tablestyle-3 {
+  margin-top: var(--blur-space-xl3);
+}
+
+.tablestyle-4 {
+  overflow-x: scroll;
+}
+
+.tablestyle-5 {
+  left: 0px;
+  position: sticky;
+}
+
+.tablestyle-6 {
+  border-collapse: collapse;
+  margin-top: var(--blur-space-lg);
+  table-layout: fixed;
+}
+
+.tablestyle-7 {
+  flex-direction: row;
+}
+
+.tablestyle-8 {
+  border-top: 1px solid var(--blur-colors-gray600);
+  flex-flow: row wrap;
+  padding-top: var(--blur-space-lg);
+  width: fit-content;
+}
+
+.btn {
+  @apply shadow-md;
+}
+
+.btn.btn-ghost {
+  @apply shadow-none;
+}
