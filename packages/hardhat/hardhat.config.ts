@@ -15,7 +15,7 @@ const deployerPrivateKey =
 const etherscanApiKey = process.env.ETHERSCAN_API_KEY || "DNXJA8RX2Q3VZ4URQIWP7Z68CJXQZSC6AW";
 
 const config: HardhatUserConfig = {
-  defaultNetwork: "localhost",
+  defaultNetwork: "goerli",
   namedAccounts: {
     deployer: {
       // By default, it will take the first Hardhat account as the deployer
@@ -44,10 +44,10 @@ const config: HardhatUserConfig = {
     //   url: `https://eth-mainnet.alchemyapi.io/v2/${providerApiKey}`,
     //   accounts: [deployerPrivateKey],
     // },
-    // goerli: {
-    //   url: `https://eth-goerli.alchemyapi.io/v2/${providerApiKey}`,
-    //   accounts: [deployerPrivateKey],
-    // },
+    goerli: {
+      url: `https://eth-goerli.alchemyapi.io/v2/${providerApiKey}`,
+      accounts: [deployerPrivateKey],
+    },
     // arbitrum: {
     //   url: `https://arb-mainnet.g.alchemy.com/v2/${providerApiKey}`,
     //   accounts: [deployerPrivateKey],

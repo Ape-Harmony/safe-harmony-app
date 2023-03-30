@@ -1,24 +1,20 @@
-import { Network } from "alchemy-sdk";
 import axios from "axios";
 import { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { addresses, chain }: { addresses: string[]; chain: number } = JSON.parse(req.body);
 
+  console.log("addresses")
+  console.log(addresses)
+  
   if (req.method !== "POST") {
     res.status(405).send({ message: "Only POST requests allowed" });
     return;
   }
 
-  // const settings = {
-  //   apiKey: process.env.ALCHEMY_API_KEY,
-  //   network: Network.MATIC_MUMBAI,
-  // };
-  // const alchemy = new Alchemy(settings);
-
   try {
     const Authorization = `Basic ${btoa(process.env.INFURA_API_KEY + ":" + process.env.INFURA_API_KEY_SECRET)}`;
-
+    console.log("post")
     let nfts = [];
     for (const address of addresses) {
       console.log(address);
@@ -68,28 +64,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         };
       })
       .sort((a, b) => b.floor - a.floor);
-
-    // Mumbai: Error: 400: This endpoint isn't enabled for that chain or network just yet - please contact the Alchemy team for support!
-    // const nfts = await alchemy.nft.getNftsForOwner(address, {
-    //   pageSize: pageSize ? pageSize : 100,
-    //   excludeFilters: excludeFilter && [NftFilters.SPAM],
-    //   pageKey: pageKey ? pageKey : "",
-    // });
-    // const formattedNfts = nfts.ownedNfts.map(nft => {
-    //   const { contract, title, tokenType, tokenId, description, media } = nft;
-    //   return {
-    //     contract: contract.address,
-    //     symbol: contract.symbol,
-    //     collectionName: contract.openSea?.collectionName,
-    //     floor: contract.openSea?.floorPrice,
-    //     media: media[0]?.gateway ? media[0]?.gateway : "https://via.placeholder.com/500",
-    //     verified: contract.openSea?.safelistRequestStatus,
-    //     tokenType,
-    //     tokenId,
-    //     title,
-    //     description,
-    //   };
-    // });
 
     res.status(200).json({ nfts: formattedNfts, pageKey: nfts.pageKey });
   } catch (e) {

@@ -1,6 +1,8 @@
 import React, { useState, useRef, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { Button } from "@chakra-ui/react";
+
 import { FaucetButton } from "~~/components/scaffold-eth";
 import { Bars3Icon, BugAntIcon, SparklesIcon } from "@heroicons/react/24/outline";
 import { useRouter } from "next/router";
@@ -29,10 +31,16 @@ const NavLink = ({ href, children }: { href: string; children: React.ReactNode }
 export default function Header() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const burgerMenuRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
+
   useOutsideClick(
     burgerMenuRef,
     useCallback(() => setIsDrawerOpen(false), []),
   );
+
+  const handleProfileClick = () => {
+    router.push("/profile");
+  };
 
   const navLinks = (
     <>
@@ -75,16 +83,18 @@ export default function Header() {
         <div className="hidden lg:flex items-center gap-2 mx-4">
           <div className="flex flex-col">
             <Link href="/" passHref className="flex relative w-40 h-10">
-              <Image alt="SE2 logo" className="cursor-pointer" fill src="/assets/ApeHarmony-Logo.png" />
+              Safe Harmony
             </Link>
             <span className="text-xs">
-              <i>NFTs Derivatives Platform</i>
             </span>
           </div>
         </div>
         <ul className="hidden lg:flex lg:flex-nowrap menu menu-horizontal px-1 gap-2">{navLinks}</ul>
       </div>
       <div className="navbar-end flex-grow mr-4">
+        <Button onClick={handleProfileClick} colorScheme="facebook" variant="outline">
+          Profile
+        </Button>
         <FaucetButton />
       </div>
     </div>
