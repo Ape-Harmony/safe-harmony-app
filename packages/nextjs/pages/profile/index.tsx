@@ -1,10 +1,6 @@
-import { useEffect, useState } from "react";
-import { ethers } from "ethers";
-import Link from "next/link";
+import { useRef, useEffect, useState } from "react";
 import Image from "next/image";
-import EthersAdapter from "@safe-global/safe-ethers-lib";
-import Safe, { SafeFactory } from "@safe-global/safe-core-sdk";
-import { useAccount, useChainId, useSigner } from "wagmi";
+import { useAccount, useChainId } from "wagmi";
 import {
   Tabs,
   TabList,
@@ -17,20 +13,20 @@ import {
   Stack,
   Spacer,
   SimpleGrid,
+  useDisclosure,
 } from "@chakra-ui/react";
 
 import RainbowKitCustomConnectButton from "~~/components/scaffold-eth/RainbowKitCustomConnectButton";
-import { useSafeAuth } from "~~/services/web3/safeAuth";
+import SafeModal from "~~/components/SafeModal";
 
 export default function Profile() {
-  const { safeAuth } = useSafeAuth();
   const [nfts, setNfts] = useState<any[]>();
   const [isLoading, setIsloading] = useState(false);
   const { isDisconnected, address } = useAccount();
-  const { data: signer }: any = useSigner();
   const chain = useChainId();
 
-  const mockContract = "0x9fF8ed7430664CbF33317b265FDE484542152390";
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   const totalFloor = nfts && nfts.reduce((a, b) => a + (b.floor || 0), 0).toFixed(3);
 
   const getNftsForOwner = async () => {
@@ -59,19 +55,6 @@ export default function Profile() {
     getNftsForOwner();
   }, [address]);
 
-  async function createSafe() {
-    const ethAdapter = new EthersAdapter({ ethers, signerOrProvider: signer });
-    const safeFactory = await SafeFactory.create({ ethAdapter });
-    const safeSdk: Safe = await safeFactory.deploySafe({
-      safeAccountConfig: { threshold: 2, owners: [address as string, mockContract] },
-    });
-
-    console.log(safeSdk.getAddress());
-    console.log(safeSdk);
-    if (safeSdk.getAddress()) {
-    }
-  }
-
   const renderNfts = (
     <SimpleGrid columns={1} spacingX="10px" spacingY="10px">
       {isLoading ? (
@@ -85,9 +68,10 @@ export default function Profile() {
               <div>{nft.floor} ETH</div>
               <div>{nft.tokenId.length > 6 ? `${nft.tokenId.slice(0, 6)}...` : nft.tokenId}</div>
               <Spacer />
-              <Button size="xs" onClick={createSafe} className="btn" color="gray.300">
+              <Button size="xs" onClick={onOpen} className="btn" color="gray.300">
                 Create Safe
               </Button>
+              <SafeModal onClose={onClose} onOpen={onOpen} isOpen={isOpen} />
             </HStack>
           );
         })
