@@ -20,8 +20,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   //   },
   // });
   // console.log(`Contract address is: ${newContract.contractAddress}`);
-  const myNFTs = await sdk.getNFTs({
-    publicAddress: process.env.WALLET_PUBLIC_ADDRESS,
+  const myNFTs = await sdk.api.getNFTs({
+    publicAddress: process.env.WALLET_PUBLIC_ADDRESS || "",
     includeMetadata: true,
   });
   console.log("My NFTs: \n", myNFTs);

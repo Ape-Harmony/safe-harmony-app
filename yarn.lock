@@ -2735,10 +2735,10 @@
   resolved "https://registry.npmjs.org/@humanwhocodes/object-schema/-/object-schema-1.2.1.tgz"
   integrity sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==
 
-"@infura/sdk@^2.1.5":
-  version "2.1.5"
-  resolved "https://registry.npmjs.org/@infura/sdk/-/sdk-2.1.5.tgz"
-  integrity sha512-T5LdzIcJbk00922VQHzdEZP8IaQQBqKRbvzgvUpXDoODD67pkpKvssaGKHVq41pSESr7mekSzX3JrQyhdFjZJw==
+"@infura/sdk@^2.2":
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/@infura/sdk/-/sdk-2.2.0.tgz#d30c724007b9ac0d7ca79bdf6f8d6fa7a54863be"
+  integrity sha512-NpKbHnQXrEKTPE3XAhyDA7Q4UrnWiIktBUAg2UqNhaVYw40aiU0dkMmvOp2KzyimDt/gohtL5Sg1dC/JncbrAw==
   dependencies:
     "@typescript-eslint/parser" "^5.49.0"
     axios "^0.27.2"
