@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { SDK, Auth, TEMPLATES, Metadata } from "@infura/sdk";
 
 const auth = new Auth({
-  projectId: process.env.INFURA_API_KEY,
+  projectId: process.env.NEXT_PUBLIC_INFURA_API_KEY,
   secretId: process.env.INFURA_API_KEY_SECRET,
   privateKey: process.env.WALLET_PRIVATE_KEY,
   chainId: 11155111,

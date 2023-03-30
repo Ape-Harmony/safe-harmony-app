@@ -13,7 +13,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   try {
-    const Authorization = `Basic ${btoa(process.env.INFURA_API_KEY + ":" + process.env.INFURA_API_KEY_SECRET)}`;
+    const Authorization = `Basic ${btoa(process.env.NEXT_PUBLIC_INFURA_API_KEY + ":" + process.env.INFURA_API_KEY_SECRET)}`;
     console.log("post")
     let nfts = [];
     for (const address of addresses) {
