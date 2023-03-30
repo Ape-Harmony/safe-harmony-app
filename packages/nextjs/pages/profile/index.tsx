@@ -2,23 +2,39 @@ import { useEffect, useState } from "react";
 import { ethers } from "ethers";
 import Link from "next/link";
 import Image from "next/image";
+import EthersAdapter from "@safe-global/safe-ethers-lib";
+import Safe, { SafeFactory } from "@safe-global/safe-core-sdk";
 import { useAccount, useChainId, useSigner } from "wagmi";
-import { HStack, Button, Box, Stack, Spacer, SimpleGrid } from "@chakra-ui/react";
+import {
+  Tabs,
+  TabList,
+  TabPanels,
+  Tab,
+  TabPanel,
+  HStack,
+  Button,
+  Box,
+  Stack,
+  Spacer,
+  SimpleGrid,
+} from "@chakra-ui/react";
 
 import RainbowKitCustomConnectButton from "~~/components/scaffold-eth/RainbowKitCustomConnectButton";
+import { useSafeAuth } from "~~/services/web3/safeAuth";
 
 export default function Profile() {
+  const { safeAuth } = useSafeAuth();
   const [nfts, setNfts] = useState<any[]>();
   const [isLoading, setIsloading] = useState(false);
   const { isDisconnected, address } = useAccount();
+  const { data: signer }: any = useSigner();
   const chain = useChainId();
 
+  const mockContract = "0x9fF8ed7430664CbF33317b265FDE484542152390";
   const totalFloor = nfts && nfts.reduce((a, b) => a + (b.floor || 0), 0).toFixed(3);
 
   const getNftsForOwner = async () => {
     setIsloading(true);
-    console.log("address");
-    console.log(address);
 
     if (address) {
       try {
@@ -30,7 +46,6 @@ export default function Profile() {
           }),
         }).then(res => res.json());
 
-        console.log("res ", res);
         setNfts(res.nfts);
       } catch (e) {
         console.log(e);
@@ -44,7 +59,49 @@ export default function Profile() {
     getNftsForOwner();
   }, [address]);
 
-  async function createSafe() {}
+  async function createSafe() {
+    const ethAdapter = new EthersAdapter({ ethers, signerOrProvider: signer });
+    const safeFactory = await SafeFactory.create({ ethAdapter });
+    const safeSdk: Safe = await safeFactory.deploySafe({
+      safeAccountConfig: { threshold: 2, owners: [address as string, mockContract] },
+    });
+
+    console.log(safeSdk.getAddress());
+    console.log(safeSdk);
+    if (safeSdk.getAddress()) {
+    }
+  }
+
+  const renderNfts = (
+    <SimpleGrid columns={1} spacingX="10px" spacingY="10px">
+      {isLoading ? (
+        <p>Loading...</p>
+      ) : nfts?.length ? (
+        nfts.map(nft => {
+          return (
+            <HStack alignItems="center" spacing="24px" key={nft.tokenId} height="80px">
+              <Image width="50" height="50" loader={props => props.src} src={nft.media} alt="nft" />
+              <div>{nft.collectionName.length > 20 ? `${nft.collectionName.slice(0, 20)}...` : nft.collectionName}</div>
+              <div>{nft.floor} ETH</div>
+              <div>{nft.tokenId.length > 6 ? `${nft.tokenId.slice(0, 6)}...` : nft.tokenId}</div>
+              <Spacer />
+              <Button size="xs" onClick={createSafe} className="btn" color="gray.300">
+                Create Safe
+              </Button>
+            </HStack>
+          );
+        })
+      ) : (
+        <p>No NFTs found for the selected address</p>
+      )}
+    </SimpleGrid>
+  );
+
+  const renderSafes = (
+    <SimpleGrid columns={1} spacingX="10px" spacingY="10px">
+      Render Safes
+    </SimpleGrid>
+  );
 
   return (
     <Stack bgColor="#253033" minHeight="100vh" padding="30px">
@@ -59,34 +116,16 @@ export default function Profile() {
               <div className="stat-desc">Address: {address}</div>
             </Box>
           </div>
-          <div>
-            <SimpleGrid columns={1} spacingX="10px" spacingY="10px">
-              {isLoading ? (
-                <p>Loading...</p>
-              ) : nfts?.length ? (
-                nfts.map(nft => {
-                  return (
-                    <HStack alignItems="center" spacing="24px" key={nft.tokenId} height="80px">
-                      <Image width="50" height="50" loader={props => props.src} src={nft.media} alt="nft" />
-                      <div>
-                        {nft.collectionName.length > 20 ? `${nft.collectionName.slice(0, 20)}...` : nft.collectionName}
-                      </div>
-                      <div>{nft.floor} ETH</div>
-                      <div>{nft.tokenId.length > 6 ? `${nft.tokenId.slice(0, 6)}...` : nft.tokenId}</div>
-                      <Spacer />
-                      <Link href={{ pathname: "/form-offer" }}>
-                        <Button onClick={createSafe} className="btn" color="gray.300">
-                          Create Safe
-                        </Button>
-                      </Link>
-                    </HStack>
-                  );
-                })
-              ) : (
-                <p>No NFTs found for the selected address</p>
-              )}
-            </SimpleGrid>
-          </div>
+          <Tabs mt={10} variant="enclosed">
+            <TabList>
+              <Tab>NFTs</Tab>
+              <Tab>Safes</Tab>
+            </TabList>
+            <TabPanels>
+              <TabPanel>{renderNfts}</TabPanel>
+              <TabPanel>{renderSafes}</TabPanel>
+            </TabPanels>
+          </Tabs>
         </div>
       )}
     </Stack>

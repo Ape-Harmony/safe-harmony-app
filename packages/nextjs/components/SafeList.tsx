@@ -1,5 +1,4 @@
 import { Grid, GridItem, Button, Box } from "@chakra-ui/react";
-import { useEffect } from "react";
 import { useSafeAuth } from "../services/web3/safeAuth";
 import { ethers } from "ethers";
 import Safe, { SafeFactory } from "@safe-global/safe-core-sdk";
@@ -12,21 +11,13 @@ import { useSigner } from "wagmi";
 // const safeSdk: Safe = await safeFactory.deploySafe({ safeAccountConfig: { threshold: 2, owners: ['0x...', '0x...', '0x..'] }});
 
 export default function SafeList({ items }: any) {
-  const { auth, login, logout, provider, safeAuth } = useSafeAuth();
+  const { login, logout, provider, safeAuth } = useSafeAuth();
   const { data: signer }: any = useSigner();
 
-  useEffect(() => {
-    // auth();
-  }, []);
-
-  async function handleSafeClick() {
-    console.log("handleSafeClick");
+  async function handleJoinSafe() {
     const ethAdapter = new EthersAdapter({ ethers, signerOrProvider: signer });
-
     const safeFactory = await SafeFactory.create({ ethAdapter });
-    // const safeSdk: Safe = await safeFactory.deploySafe({
-    //   safeAccountConfig: { threshold: 2, owners: ["0x...", "0x...", "0x.."] },
-    // });
+    // TODO: join a safe
   }
 
   const renderItems = items.map((safe: any) => {
@@ -41,7 +32,7 @@ export default function SafeList({ items }: any) {
             </Button>
           )}
           {provider && (
-            <Button onClick={handleSafeClick} mt={4}>
+            <Button onClick={handleJoinSafe} mt={4}>
               Sign
             </Button>
           )}
@@ -50,7 +41,6 @@ export default function SafeList({ items }: any) {
     );
   });
 
-  console.log(provider);
   return (
     <Grid templateColumns="repeat(5, 1fr)" gap={6}>
       {renderItems}

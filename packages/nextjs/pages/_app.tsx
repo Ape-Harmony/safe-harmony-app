@@ -14,8 +14,8 @@ import Header from "~~/components/Header";
 import Footer from "~~/components/Footer";
 
 import { useAppStore } from "~~/services/store/store";
-import { useSafeAuth } from "~~/services/web3/safeAuth";
 import { useEthPrice } from "~~/hooks/scaffold-eth";
+import { SafeProvider } from '../context/SafeProvider'
 
 import NextNProgress from "nextjs-progressbar";
 import "~~/styles/globals.css";
@@ -37,14 +37,16 @@ const ScaffoldEthApp = ({ Component, pageProps }: AppProps) => {
       <WagmiConfig client={wagmiClient}>
         <NextNProgress />
         <RainbowKitProvider chains={appChains.chains} avatar={BlockieAvatar}>
-          <div className="flex flex-col min-h-screen">
-            <Header />
-            <main className="relative flex flex-col flex-1">
-              <Component {...pageProps} />
-            </main>
-            <Footer />
-          </div>
-          <Toaster />
+          <SafeProvider>
+            <div className="flex flex-col min-h-screen">
+              <Header />
+              <main className="relative flex flex-col flex-1">
+                <Component {...pageProps} />
+              </main>
+              <Footer />
+            </div>
+            <Toaster />
+          </SafeProvider>
         </RainbowKitProvider>
       </WagmiConfig>
     </ChakraProvider>

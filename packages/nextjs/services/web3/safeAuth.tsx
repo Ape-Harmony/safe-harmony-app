@@ -1,28 +1,12 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { SafeAuthKit, SafeAuthProviderType } from "@safe-global/auth-kit";
+import { SafeContext } from '../../context/SafeProvider';
 
 export function useSafeAuth() {
-  const [safeAuth, setSafeAuth] = useState<any>();
+  const safeContext = useContext(SafeContext);
+  const { safeAuth } = safeContext;
   const [provider, setProvider] = useState<any | null>(null);
   const [safeAuthSignInResponse, setSafeAuthSignInResponse] = useState<any | null>(null);
-
-  const auth = async () => {
-    try {
-      const safe = await SafeAuthKit.init(SafeAuthProviderType.Web3Auth, {
-        chainId: "0x5",
-        txServiceUrl: "https://safe-transaction-goerli.safe.global", // Optional. Only if want to retrieve related safes
-        authProviderConfig: {
-          rpcTarget: `https://goerli.infura.io/v3/${process.env.NEXT_PUBLIC_INFURA_API_KEY}`,
-          clientId: process.env.NEXT_PUBLIC_WEB3_AUTH_CLIENT_ID,
-          network: "testnet",
-          theme: "dark",
-        },
-      });
-      setSafeAuth(safe);
-    } catch (e) {
-      console.log(e);
-    }
-  };
 
   const login = async () => {
     if (!safeAuth) return;
@@ -46,7 +30,6 @@ export function useSafeAuth() {
   return {
     provider,
     safeAuth,
-    auth,
     login,
     logout,
     safeAuthSignInResponse,
