@@ -33,6 +33,7 @@ export default function SafeModal({ isOpen, onClose }: any) {
   const mockContract = "0x9fF8ed7430664CbF33317b265FDE484542152390";
 
   async function createSafe(safeData: any) {
+    // TODO: ALEX!! Use Safe Manager 0_0
     const ethAdapter = new EthersAdapter({ ethers, signerOrProvider: signer });
     const safeFactory = await SafeFactory.create({ ethAdapter });
     const safeSdk: Safe = await safeFactory.deploySafe({
