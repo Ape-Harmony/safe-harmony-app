@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useAccount, useChainId } from "wagmi";
 import {
@@ -15,16 +15,21 @@ import {
   SimpleGrid,
   useDisclosure,
 } from "@chakra-ui/react";
+import { useSafeAuth } from "~~/services/web3/safeAuth";
 
 import RainbowKitCustomConnectButton from "~~/components/scaffold-eth/RainbowKitCustomConnectButton";
+import List from "~~/components/SafeList";
 import SafeModal from "~~/components/SafeModal";
 
 export default function Profile() {
+  const { login, logout, provider, safeAuth, authAddress } = useSafeAuth();
   const [nfts, setNfts] = useState<any[]>();
   const [isLoading, setIsloading] = useState(false);
   const { isDisconnected, address } = useAccount();
   const chain = useChainId();
 
+  console.log("safeAuth");
+  console.log(safeAuth);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const totalFloor = nfts && nfts.reduce((a, b) => a + (b.floor || 0), 0).toFixed(3);
@@ -68,10 +73,10 @@ export default function Profile() {
               <div>{nft.floor} ETH</div>
               <div>{nft.tokenId.length > 6 ? `${nft.tokenId.slice(0, 6)}...` : nft.tokenId}</div>
               <Spacer />
-              <Button size="xs" onClick={onOpen} className="btn" color="gray.300">
+              <Button isDisabled={!provider} size="xs" onClick={onOpen} className="btn" color="gray.300">
                 Create Safe
               </Button>
-              <SafeModal onClose={onClose} onOpen={onOpen} isOpen={isOpen} />
+              <SafeModal onClose={onClose} isOpen={isOpen} />
             </HStack>
           );
         })
@@ -83,13 +88,25 @@ export default function Profile() {
 
   const renderSafes = (
     <SimpleGrid columns={1} spacingX="10px" spacingY="10px">
-      Render Safes
+      {authAddress?.safes && <List safeAddresses={authAddress.safes} />}
     </SimpleGrid>
   );
 
   return (
     <Stack bgColor="#253033" minHeight="100vh" padding="30px">
-      <RainbowKitCustomConnectButton />
+      <Box>
+        <RainbowKitCustomConnectButton />
+        {!provider && (
+          <Button size="xs" onClick={() => login()} className="btn" color="blue.300">
+            Auth to Create Safe
+          </Button>
+        )}
+        {provider && (
+          <Button size="xs" onClick={() => logout()} className="btn" color="gray.300">
+            Logout
+          </Button>
+        )}
+      </Box>
       {isDisconnected && <Box>Connect wallet to see NFTs</Box>}
       {!isDisconnected && (
         <div>

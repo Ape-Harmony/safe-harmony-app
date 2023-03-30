@@ -4,9 +4,6 @@ import { NextApiRequest, NextApiResponse } from "next";
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { addresses, chain }: { addresses: string[]; chain: number } = JSON.parse(req.body);
 
-  console.log("addresses")
-  console.log(addresses)
-  
   if (req.method !== "POST") {
     res.status(405).send({ message: "Only POST requests allowed" });
     return;
