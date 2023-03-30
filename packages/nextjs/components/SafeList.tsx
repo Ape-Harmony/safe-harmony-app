@@ -10,7 +10,7 @@ import { useSigner } from "wagmi";
 // const safeFactory = await SafeFactory.create({ ethAdapter }); //4
 // const safeSdk: Safe = await safeFactory.deploySafe({ safeAccountConfig: { threshold: 2, owners: ['0x...', '0x...', '0x..'] }});
 
-export default function SafeList({ items }: any) {
+export default function SafeList({ items, safeAddresses }: any) {
   const { login, logout, provider, safeAuth } = useSafeAuth();
   const { data: signer }: any = useSigner();
 
@@ -20,22 +20,40 @@ export default function SafeList({ items }: any) {
     // TODO: join a safe
   }
 
-  const renderItems = items.map((safe: any) => {
+  const renderButtons = (
+    <>
+      {!provider && (
+        <Button onClick={() => login()} mt={4}>
+          Auth to Sign
+        </Button>
+      )}
+      {provider && (
+        <Button onClick={handleJoinSafe} mt={4}>
+          Sign
+        </Button>
+      )}
+    </>
+  );
+  // Temorary.. TODO: delete when fetch safes
+  const renderAddresses = safeAddresses?.map((address: any) => {
+    return (
+      <GridItem key={address} w="100%" h="40">
+        <Box boxShadow="xs" p="3" border="1px" borderColor="gray.200" alignItems="center" color="gray.300">
+          <h4>{address.split(0, 6)}..</h4>
+          <div>isLocked: </div>
+          {renderButtons}
+        </Box>
+      </GridItem>
+    );
+  });
+
+  const renderItems = items?.map((safe: any) => {
     return (
       <GridItem key={safe.id} w="100%" h="40">
         <Box boxShadow="xs" p="3" border="1px" borderColor="gray.200" alignItems="center" color="gray.300">
           <h4>{safe.name}</h4>
           <div>isLocked: {safe.isLocked}</div>
-          {!provider && (
-            <Button onClick={() => login()} mt={4}>
-              Auth to Sign
-            </Button>
-          )}
-          {provider && (
-            <Button onClick={handleJoinSafe} mt={4}>
-              Sign
-            </Button>
-          )}
+          {renderButtons}
         </Box>
       </GridItem>
     );
@@ -43,7 +61,8 @@ export default function SafeList({ items }: any) {
 
   return (
     <Grid templateColumns="repeat(5, 1fr)" gap={6}>
-      {renderItems}
+      {items ? renderItems : renderAddresses}
+      {!items && !safeAddresses && (<div> No Safes Created yet </div>)}
     </Grid>
   );
 }
