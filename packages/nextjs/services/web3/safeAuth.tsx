@@ -7,20 +7,18 @@ export function useSafeAuth() {
   const [safeAuthSignInResponse, setSafeAuthSignInResponse] = useState<any | null>(null);
 
   const auth = async () => {
-    setSafeAuth(
-      await SafeAuthKit.init(SafeAuthProviderType.Web3Auth, {
-        chainId: "0x5",
-        txServiceUrl: "https://safe-transaction-goerli.safe.global", // Optional. Only if want to retrieve related safes
-        authProviderConfig: {
-          //rpcTarget: `https://goerli.infura.io/v3/${process.env.INFURA_API_KEY}`,
-          rpcTarget: `https://goerli.infura.io/v3/cdb4d6bddb91452d90a7213480d8d791`,
-          //clientId: process.env.WEB3_AUTH_CLIENT_ID,
-          clientId: "BKgUDDbGRab81AQa5WbjQNIbj05-1elP8PKWVsUfUb2WNoarBPp32IcYiFqzKbsRsvzFBNhm1k0plsOeyyjCNiw",
-          network: "testnet",
-          theme: "dark",
-        },
-      }),
-    );
+    const safe = await SafeAuthKit.init(SafeAuthProviderType.Web3Auth, {
+      chainId: "0x5",
+      txServiceUrl: "https://safe-transaction-goerli.safe.global", // Optional. Only if want to retrieve related safes
+      authProviderConfig: {
+        rpcTarget: `https://goerli.infura.io/v3/${process.env.INFURA_API_KEY}`,
+        clientId: process.env.WEB3_AUTH_CLIENT_ID,
+        network: "testnet",
+        theme: "dark",
+      },
+    })
+
+    setSafeAuth(safe);
   };
 
   const login = async () => {
@@ -44,6 +42,7 @@ export function useSafeAuth() {
 
   return {
     provider,
+    safeAuth,
     auth,
     login,
     logout,

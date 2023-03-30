@@ -23,15 +23,8 @@ import "~~/styles/globals.css";
 import type { AppProps } from "next/app";
 
 const ScaffoldEthApp = ({ Component, pageProps }: AppProps) => {
-  const { auth } = useSafeAuth();
   const price = useEthPrice();
   const setEthPrice = useAppStore(state => state.setEthPrice);
-
-  useEffect(() => {
-    (async () => {
-      await auth();
-    })();
-  }, []);
 
   useEffect(() => {
     if (price > 0) {

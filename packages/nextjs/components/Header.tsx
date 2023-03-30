@@ -1,10 +1,9 @@
 import React, { useState, useRef, useCallback } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { Button } from "@chakra-ui/react";
 
 import { FaucetButton } from "~~/components/scaffold-eth";
-import { Bars3Icon, BugAntIcon, SparklesIcon } from "@heroicons/react/24/outline";
+import { Bars3Icon, BugAntIcon } from "@heroicons/react/24/outline";
 import { useRouter } from "next/router";
 import { useOutsideClick } from "~~/hooks/scaffold-eth";
 
@@ -57,7 +56,7 @@ export default function Header() {
   );
 
   return (
-    <div className="sticky lg:static top-0 navbar bg-base-100 min-h-0 flex-shrink-0 justify-between z-20 shadow-md lg:shadow-none shadow-secondary">
+    <div className="sticky lg:static top-0 navbar bg-nav min-h-0 flex-shrink-0 justify-between z-20 shadow-md lg:shadow-none shadow-secondary">
       <div className="navbar-start w-auto lg:w-1/2">
         <div className="lg:hidden dropdown" ref={burgerMenuRef}>
           <button

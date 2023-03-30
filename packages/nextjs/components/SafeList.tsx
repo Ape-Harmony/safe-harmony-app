@@ -1,8 +1,13 @@
 import { Grid, GridItem, Button, Box } from "@chakra-ui/react";
+import { useEffect } from "react";
 import { useSafeAuth } from "../services/web3/safeAuth";
 
 export default function SafeList({ items }: any) {
-  const { login, logout, provider } = useSafeAuth();
+  const { auth, login, logout, provider, safeAuth } = useSafeAuth();
+
+  useEffect(() => {
+    auth();
+  }, []);
 
   function handleSafeClick(){
     console.log("handleSafeClick");

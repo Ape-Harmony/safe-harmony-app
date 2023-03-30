@@ -163,3 +163,7 @@ p {
 .btn.btn-ghost {
   @apply shadow-none;
 }
+
+.bg-nav {
+  background: "#ceac777a";
+}
