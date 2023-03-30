@@ -67,7 +67,7 @@ export default function Profile() {
                 nfts.map(nft => {
                   return (
                     <HStack alignItems="center" spacing="24px" key={nft.tokenId} height="80px">
-                      <Image width="50" height="50" src={nft.media} alt="nft" />
+                      <Image width="50" height="50" loader={props => props.src} src={nft.media} alt="nft" />
                       <div>
                         {nft.collectionName.length > 20 ? `${nft.collectionName.slice(0, 20)}...` : nft.collectionName}
                       </div>
