@@ -22,6 +22,7 @@ const Home: NextPage = () => {
         <p className="text-xl">safe NFT lending</p>
         <h3>Active Safes</h3>
         <List items={safeMock} />
+        {/* safeonramp stripe implementation */}
         <SafeOnRamp/>
       </div>
     </>
