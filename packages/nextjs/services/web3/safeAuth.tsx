@@ -12,11 +12,11 @@ export function useSafeAuth() {
       txServiceUrl: "https://safe-transaction-goerli.safe.global", // Optional. Only if want to retrieve related safes
       authProviderConfig: {
         rpcTarget: `https://goerli.infura.io/v3/${process.env.INFURA_API_KEY}`,
-        clientId: process.env.WEB3_AUTH_CLIENT_ID,
+        clientId: process.env.WEB3_AUTH_CLIENT_ID || "",
         network: "testnet",
         theme: "dark",
       },
-    })
+    });
 
     setSafeAuth(safe);
   };

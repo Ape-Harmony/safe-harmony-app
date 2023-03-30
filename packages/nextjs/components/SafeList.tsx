@@ -6,27 +6,35 @@ export default function SafeList({ items }: any) {
   const { auth, login, logout, provider, safeAuth } = useSafeAuth();
 
   useEffect(() => {
-    auth();
+    // auth();
   }, []);
 
-  function handleSafeClick(){
+  function handleSafeClick() {
     console.log("handleSafeClick");
   }
 
   const renderItems = items.map((safe: any) => {
     return (
       <GridItem key={safe.id} w="100%" h="40">
-        <Box boxShadow='xs' p='3' border="1px" borderColor='gray.200' alignItems="center" color="gray.300">
+        <Box boxShadow="xs" p="3" border="1px" borderColor="gray.200" alignItems="center" color="gray.300">
           <h4>{safe.name}</h4>
           <div>isLocked: {safe.isLocked}</div>
-          {!provider && <Button onClick={() => login()} mt={4}>Auth to Sign</Button>}
-          {provider && <Button onClick={handleSafeClick} mt={4}>Sign</Button>}
+          {!provider && (
+            <Button onClick={() => login()} mt={4}>
+              Auth to Sign
+            </Button>
+          )}
+          {provider && (
+            <Button onClick={handleSafeClick} mt={4}>
+              Sign
+            </Button>
+          )}
         </Box>
       </GridItem>
     );
   });
 
-  console.log(provider)
+  console.log(provider);
   return (
     <Grid templateColumns="repeat(5, 1fr)" gap={6}>
       {renderItems}
