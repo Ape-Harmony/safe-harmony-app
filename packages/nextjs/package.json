@@ -24,6 +24,7 @@
     "@lens-protocol/widgets-react": "^0.0.4",
     "@rainbow-me/rainbowkit": "^0.11.0",
     "@safe-global/auth-kit": "^0.1.0-alpha.2",
+    "@safe-global/onramp-kit": "^0.1.0-alpha.2",
     "@safe-global/safe-core-sdk": "^3.3.2",
     "@safe-global/safe-core-sdk-utils": "^1.7.2",
     "@safe-global/safe-ethers-lib": "^1.9.2",

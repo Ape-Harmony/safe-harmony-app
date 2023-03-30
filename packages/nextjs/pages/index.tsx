@@ -3,8 +3,11 @@ import type { NextPage } from "next";
 import Head from "next/head";
 
 import List from "../components/SafeList";
+import SafeOnRamp from "../components/SafeOnRamp";
 
 import { safeMock } from "../mock";
+import { SafeOnRampKit, SafeOnRampProviderType } from '@safe-global/onramp-kit'
+import { useSigner, useAccount } from "wagmi";
 
 const Home: NextPage = () => {
   return (
@@ -19,6 +22,8 @@ const Home: NextPage = () => {
         <p className="text-xl">safe NFT lending</p>
         <h3>Active Safes</h3>
         <List items={safeMock} />
+        {/* @ts-expect-error Server Component */}
+        <SafeOnRamp/>
       </div>
     </>
   );
