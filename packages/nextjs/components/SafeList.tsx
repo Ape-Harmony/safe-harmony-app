@@ -16,7 +16,7 @@ export default function SafeList({ items }: any) {
   const { data: signer }: any = useSigner();
 
   useEffect(() => {
-    auth();
+    // auth();
   }, []);
 
   async function handleSafeClick() {

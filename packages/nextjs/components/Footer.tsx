@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { CurrencyDollarIcon } from "@heroicons/react/24/outline";
 import { useAppStore } from "~~/services/store/store";
 import { HeartIcon } from "@heroicons/react/24/outline";
-import SwitchTheme from "./SwitchTheme";
 import { Faucet } from "~~/components/scaffold-eth";
 import { getTargetNetwork } from "~~/utils/scaffold-eth";
 import { hardhat } from "wagmi/chains";
+import { useDarkMode } from "usehooks-ts";
 
 /**
  * Site footer
@@ -13,6 +13,12 @@ import { hardhat } from "wagmi/chains";
 export default function Footer() {
   const ethPrice = useAppStore(state => state.ethPrice);
   const configuredNetwork = getTargetNetwork();
+
+  useDarkMode(true);
+  useEffect(() => {
+    const body = document.body;
+    body.setAttribute("data-theme", "scaffoldEthDark");
+  }, []);
 
   return (
     <div className="min-h-0 p-5 mb-11 lg:mb-0">
