@@ -6,12 +6,12 @@ const Home: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Ape Harmony - Home</title>
-        <meta name="description" content="Created with 🏗 scaffold-eth" />
+        <title>Safe Harmony - Home</title>
+        <meta name="description" content="safe NFT lending" />
       </Head>
 
       <div className="flex items-center flex-col flex-grow pt-8">
-        <img src="\assets\ApeHarmony-Logo.png" alt="Ape harmony" />
+        <h1 className="text-4xl font-bold">Safe Harmony</h1>
       </div>
     </>
   );

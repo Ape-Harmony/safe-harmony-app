@@ -2,7 +2,6 @@ import React, { useState, useRef, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { FaucetButton } from "~~/components/scaffold-eth";
-import RainbowKitCustomConnectButton from "~~/components/scaffold-eth/RainbowKitCustomConnectButton";
 import { Bars3Icon, BugAntIcon, SparklesIcon } from "@heroicons/react/24/outline";
 import { useRouter } from "next/router";
 import { useOutsideClick } from "~~/hooks/scaffold-eth";
@@ -86,7 +85,6 @@ export default function Header() {
         <ul className="hidden lg:flex lg:flex-nowrap menu menu-horizontal px-1 gap-2">{navLinks}</ul>
       </div>
       <div className="navbar-end flex-grow mr-4">
-        <RainbowKitCustomConnectButton />
         <FaucetButton />
       </div>
     </div>
