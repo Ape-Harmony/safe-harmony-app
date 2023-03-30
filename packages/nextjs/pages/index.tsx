@@ -22,7 +22,6 @@ const Home: NextPage = () => {
         <p className="text-xl">safe NFT lending</p>
         <h3>Active Safes</h3>
         <List items={safeMock} />
-        {/* @ts-expect-error Server Component */}
         <SafeOnRamp/>
       </div>
     </>
