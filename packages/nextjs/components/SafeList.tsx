@@ -64,9 +64,10 @@ export default function SafeList({ items, safeAddresses }: any) {
       <>
         <Flex
           w="617px"
-          h="75px"
+          h="77px"
           boxShadow="xs"
-          p="3"
+          py="3"
+          px={0}
           border="2px"
           borderColor="#58E8F5"
           borderRadius="34px"
@@ -79,10 +80,10 @@ export default function SafeList({ items, safeAddresses }: any) {
             <h4>{address.split(0, 6)}..</h4>
             <Box>
               <Flex>
-                <div>Fee: </div>
-                <div>Min Days: </div>
+                <div>Fee:  0.1 USDT</div>
+                <div>Min Days: 10</div>
               </Flex>
-              <div>Daily stream amount:: </div>
+              <div>Daily stream amount: 2 </div>
             </Box>
           </Flex>
           {renderButtons(address)}
@@ -112,10 +113,10 @@ export default function SafeList({ items, safeAddresses }: any) {
             <img src="/assets/nftMock.svg" alt="nft" />
             <Box m="auto">
               <Flex ml={4}>
-                <Box mr={40}>Fee: </Box>
-                <Box>Min Days: </Box>
+                <Box mr={40}>Fee: 0.1 USDT</Box>
+                <Box>Min Days: 10</Box>
               </Flex>
-              <Box ml={4}>Daily stream amount:: </Box>
+              <Box ml={4}>Daily stream amount: 2</Box>
             </Box>
           </Flex>
           {renderButtons(safe.address)}

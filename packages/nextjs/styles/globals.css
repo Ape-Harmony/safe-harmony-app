@@ -165,5 +165,14 @@ p {
 }
 
 .bg-nav {
-  background: "#ceac777a";
+  background: linear-gradient(93.35deg, #292123 6.89%, #1B2027 34.05%, #221721 81.9%);
+}
+
+.btn-image {
+  opacity: 1;
+  cursor: pointer;
+}
+.btn-image:hover {
+  opacity: 0.5;
+  filter: alpha(opacity=100);
 }

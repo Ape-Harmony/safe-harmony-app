@@ -3698,6 +3698,13 @@
     ethers "^5.7.2"
     events "^3.3.0"
 
+"@safe-global/onramp-kit@^0.1.0-alpha.2":
+  version "0.1.0-alpha.2"
+  resolved "https://registry.yarnpkg.com/@safe-global/onramp-kit/-/onramp-kit-0.1.0-alpha.2.tgz#cf88ecf6db1c3cfbebee267b5b9c800af1e42bad"
+  integrity sha512-GRxYSxJ1AcrCOIY3m52d80pw2NrsFo6iCUYKKlVMwd1pl8K7IVgL9sY2JoEghChayr1orJpv0PW1qypbEaR+1g==
+  dependencies:
+    "@ethersproject/address" "^5.7.0"
+
 "@safe-global/safe-apps-provider@^0.15.2":
   version "0.15.2"
   resolved "https://registry.npmjs.org/@safe-global/safe-apps-provider/-/safe-apps-provider-0.15.2.tgz"
@@ -15259,6 +15266,11 @@ react-focus-lock@^2.9.2:
     react-clientside-effect "^1.2.6"
     use-callback-ref "^1.3.0"
     use-sidecar "^1.1.2"
+
+react-hook-form@^7.43.8:
+  version "7.43.8"
+  resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-7.43.8.tgz#189fe4fb31e15c280b529cc3041249ed12108d75"
+  integrity sha512-BQm+Ge5KjTk1EchDBRhdP8Pkb7MArO2jFF+UWYr3rtvh6197khi22uloLqlWeuY02ItlCzPunPsFt1/q9wQKnw==
 
 react-hook-form@^7.43.8:
   version "7.43.8"
