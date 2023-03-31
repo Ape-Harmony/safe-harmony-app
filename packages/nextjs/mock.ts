@@ -6,4 +6,5 @@ export const safeMock = Array.apply(null, Array(5)).map((x, i) => ({
   isLocked: false,
   owner: "0x123",
   user: "0x456",
+  address: "0x9Ea5e6ED61c1394f7cA15AfD8d97C998cd458C87",
 }));

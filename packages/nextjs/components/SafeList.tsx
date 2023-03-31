@@ -21,8 +21,8 @@ export default function SafeList({ items, safeAddresses }: any) {
     const tx = await safeSdk.createEnableModuleTx("0x0847ecc9190158a77afa3f7501d9b764035bf39a");
     console.log(tx);
     safeSdk.getModules();
-    // const signature = await safeSdk.signTransaction(tx);
-    // console.log(signature);
+    const signature = await safeSdk.signTransaction(tx);
+    console.log(signature);
     const result = await safeSdk.executeTransaction(tx);
     console.log(result);
     // TODO: join a safe
