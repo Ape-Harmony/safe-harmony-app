@@ -1,30 +1,40 @@
 import React from "react";
 import type { NextPage } from "next";
 import Head from "next/head";
+import { HStack, Box, VStack, Spacer } from "@chakra-ui/react";
 
 import List from "../components/SafeList";
 import SafeOnRamp from "../components/SafeOnRamp";
 
 import { safeMock } from "../mock";
 import { SafeOnRampKit, SafeOnRampProviderType } from '@safe-global/onramp-kit'
-import { useSigner, useAccount } from "wagmi";
 
 const Home: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Safe Harmony - Home</title>
+        {/* <title>Safe Harmony - Home</title> */}
         <meta name="description" content="safe NFT lending" />
       </Head>
 
-      <div className="flex items-center flex-col flex-grow pt-8">
-        <h1 className="text-4xl font-bold">Safe Harmony</h1>
-        <p className="text-xl">safe NFT lending</p>
-        <h3>Active Safes</h3>
-        <List items={safeMock} />
-        {/* safeonramp stripe implementation */}
-        <SafeOnRamp/>
-      </div>
+      <HStack spacing={8}>
+        <Box mt={4}>
+          <img src="/assets/landing.svg" alt="landing" />
+          <Box mt={6} ml={20}><SafeOnRamp/></Box>
+        </Box>
+        <div className="pt-8">
+          <Spacer />
+          <Box>
+            <img src="/assets/info.svg"></img>
+          </Box>
+          <Box pt={8} pb={2}>
+            <h1 style={{ fontWeight: "bold" }}>ACTIVE SAFES</h1>
+          </Box>
+          <VStack gap={2} style={{ height: "660px", overflow: "scroll" }}>
+            <List items={safeMock} />
+          </VStack>
+        </div>
+      </HStack>
     </>
   );
 };

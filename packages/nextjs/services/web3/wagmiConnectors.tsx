@@ -1,4 +1,4 @@
-import { connectorsForWallets } from "@rainbow-me/rainbowkit";
+import { connectorsForWallets, Wallet } from "@rainbow-me/rainbowkit";
 import {
   rainbowWallet,
   metaMaskWallet,
@@ -13,6 +13,8 @@ import { alchemyProvider } from "wagmi/providers/alchemy";
 import { publicProvider } from "wagmi/providers/public";
 import { burnerWalletConfig } from "~~/services/web3/wagmi-burner/burnerWalletConfig";
 import { getTargetNetwork } from "~~/utils/scaffold-eth";
+// import { SafeConnector } from "@wagmi/connectors/safe";
+// import { rainbowWeb3AuthConnector } from "./rainbowWeb3authConnector.js";
 
 const configuredChain = getTargetNetwork();
 // We always want to have mainnet enabled (ENS resolution, ETH price, etc). But only once.
@@ -62,6 +64,23 @@ export const burnerChains = configureChains(
   ],
 );
 
+// const safeWallet: Wallet = {
+//   id: "safe",
+//   name: "Safe",
+//   iconUrl: "/images/wallets/safe.svg",
+//   iconBackground: "#fff",
+//   installed: true,
+//   createConnector: () => ({
+//     connector: new SafeConnector({
+//       chains: appChains.chains,
+//       options: {
+//         allowedDomains: [/gnosis-safe.io$/, /app.safe.global$/],
+//         debug: false,
+//       },
+//     }) as any,
+//   }),
+// };
+
 /**
  * wagmi connectors for the wagmi context
  */
@@ -69,6 +88,8 @@ export const wagmiConnectors = connectorsForWallets([
   {
     groupName: "Supported Wallets",
     wallets: [
+      // safeWallet,
+      // rainbowWeb3AuthConnector({ chains: appChains.chains }),
       metaMaskWallet({ chains: appChains.chains, shimDisconnect: true }),
       walletConnectWallet({ chains: appChains.chains }),
       ledgerWallet({ chains: appChains.chains }),

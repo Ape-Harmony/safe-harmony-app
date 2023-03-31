@@ -1,6 +1,6 @@
 import React, { useState, useRef, useCallback } from "react";
 import Link from "next/link";
-import { Button } from "@chakra-ui/react";
+import { Button, Box } from "@chakra-ui/react";
 
 import { FaucetButton } from "~~/components/scaffold-eth";
 import { Bars3Icon, BugAntIcon } from "@heroicons/react/24/outline";
@@ -40,17 +40,22 @@ export default function Header() {
   const handleProfileClick = () => {
     router.push("/profile");
   };
+  function handleHomeClick() {
+    router.push("/");
+  }
 
   const navLinks = (
     <>
-      <li>
-        <NavLink href="/">Home</NavLink>
-      </li>
       <li>
         <NavLink href="/debug">
           <BugAntIcon className="h-4 w-4" />
           Debug Contracts
         </NavLink>
+      </li>
+      <li>
+        <Button onClick={handleHomeClick} colorScheme="facebook" variant="outline">
+          Home
+        </Button>
       </li>
     </>
   );
@@ -79,18 +84,11 @@ export default function Header() {
             </ul>
           )}
         </div>
-        <div className="hidden lg:flex items-center gap-2 mx-4">
-          <div className="flex flex-col">
-            <Link href="/" passHref className="flex relative w-40 h-10">
-              Safe Harmony
-            </Link>
-            <span className="text-xs">
-            </span>
-          </div>
-        </div>
-        <ul className="hidden lg:flex lg:flex-nowrap menu menu-horizontal px-1 gap-2">{navLinks}</ul>
       </div>
       <div className="navbar-end flex-grow mr-4">
+        <Box pr={4}>
+          <div className="hidden lg:flex lg:flex-nowrap menu menu-horizontal px-1 gap-2">{navLinks}</div>
+        </Box>
         <Button onClick={handleProfileClick} colorScheme="facebook" variant="outline">
           Profile
         </Button>

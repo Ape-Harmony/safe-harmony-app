@@ -33,12 +33,28 @@ export default function SafeModal({ isOpen, onClose }: any) {
   const mockContract = "0x9fF8ed7430664CbF33317b265FDE484542152390";
 
   async function createSafe(safeData: any) {
+    
+    // TODO: ALEX!! Use Safe Manager 0_0
     const ethAdapter = new EthersAdapter({ ethers, signerOrProvider: signer });
     const safeFactory = await SafeFactory.create({ ethAdapter });
+
+    // const ABI = ["function hello() external"];
+    // const iface = new ethers.utils.Interface(ABI);
+    // const data = iface.encodeFunctionData("hello", []);
+    // console.log(data);
+
     const safeSdk: Safe = await safeFactory.deploySafe({
-      safeAccountConfig: { threshold: 2, owners: [authAddress.eoa, mockContract] },
+      safeAccountConfig: {
+        threshold: 1,
+        owners: [authAddress.eoa],
+        // to: "0x0847ecc9190158a77afa3f7501d9b764035bf39a",
+        // data,
+      },
     });
-    console.log(safeSdk.getAddress());
+    // console.log(safeSdk.getAddress());
+    const tx = await safeSdk.createEnableModuleTx("0x0847ecc9190158a77afa3f7501d9b764035bf39a");
+    const result = await safeSdk.executeTransaction(tx);
+    console.log(result);
   }
 
   return (
