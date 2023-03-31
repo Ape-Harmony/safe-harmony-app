@@ -14,13 +14,21 @@ export default function SafeList({ items, safeAddresses }: any) {
   const { login, logout, provider, safeAuth } = useSafeAuth();
   const { data: signer }: any = useSigner();
 
-  async function handleJoinSafe() {
+  async function handleJoinSafe(safeAddress: string) {
     const ethAdapter = new EthersAdapter({ ethers, signerOrProvider: signer });
-    const safeFactory = await SafeFactory.create({ ethAdapter });
+    // const safeFactory = await SafeFactory.create({ ethAdapter });
+    const safeSdk: Safe = await Safe.create({ ethAdapter, safeAddress });
+    const tx = await safeSdk.createEnableModuleTx("0x0847ecc9190158a77afa3f7501d9b764035bf39a");
+    console.log(tx);
+    safeSdk.getModules();
+    // const signature = await safeSdk.signTransaction(tx);
+    // console.log(signature);
+    const result = await safeSdk.executeTransaction(tx);
+    console.log(result);
     // TODO: join a safe
   }
 
-  const renderButtons = (
+  const renderButtons = address => (
     <>
       {!provider && (
         <Button
@@ -43,7 +51,7 @@ export default function SafeList({ items, safeAddresses }: any) {
           color="#E3667F"
           borderRadius="30px"
           h="74px"
-          onClick={handleJoinSafe}
+          onClick={() => handleJoinSafe(address)}
         >
           Request
         </Button>
@@ -78,7 +86,7 @@ export default function SafeList({ items, safeAddresses }: any) {
               <div>Daily stream amount: 2 </div>
             </Box>
           </Flex>
-          {renderButtons}
+          {renderButtons(address)}
         </Flex>
       </>
     );
@@ -111,7 +119,7 @@ export default function SafeList({ items, safeAddresses }: any) {
               <Box ml={4}>Daily stream amount: 2</Box>
             </Box>
           </Flex>
-          {renderButtons}
+          {renderButtons(safe.address)}
         </Flex>
       </>
     );
