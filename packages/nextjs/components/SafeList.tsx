@@ -1,4 +1,4 @@
-import { Grid, GridItem, Button, Box } from "@chakra-ui/react";
+import { Grid, GridItem, Button, Box, Flex } from "@chakra-ui/react";
 import { useSafeAuth } from "../services/web3/safeAuth";
 import { ethers } from "ethers";
 import Safe, { SafeFactory } from "@safe-global/safe-core-sdk";
@@ -31,13 +31,29 @@ export default function SafeList({ items, safeAddresses }: any) {
   const renderButtons = address => (
     <>
       {!provider && (
-        <Button onClick={() => login()} mt={4}>
-          Auth to Sign
+        <Button
+          border="2px"
+          background="#211922"
+          borderColor="#71283D"
+          color="#E3667F"
+          borderRadius="30px"
+          h="74px"
+          onClick={() => login()}
+        >
+          Auth to Join
         </Button>
       )}
       {provider && (
-        <Button onClick={() => handleJoinSafe(address)} mt={4}>
-          Add module
+        <Button
+          border="2px"
+          background="#211922"
+          borderColor="#71283D"
+          color="#E3667F"
+          borderRadius="30px"
+          h="74px"
+          onClick={() => handleJoinSafe(address)}
+        >
+          Request
         </Button>
       )}
     </>
@@ -45,32 +61,73 @@ export default function SafeList({ items, safeAddresses }: any) {
   // Temorary.. TODO: delete when fetch safes
   const renderAddresses = safeAddresses?.map((address: any) => {
     return (
-      <GridItem key={address} w="100%" h="40">
-        <Box boxShadow="xs" p="3" border="1px" borderColor="gray.200" alignItems="center" color="gray.300">
-          <h4>{address.split(0, 6)}..</h4>
-          <div>isLocked: </div>
+      <>
+        <Flex
+          w="617px"
+          h="75px"
+          boxShadow="xs"
+          p="3"
+          border="2px"
+          borderColor="#58E8F5"
+          borderRadius="34px"
+          alignItems="center"
+          color="#B2AFAF"
+          display="flex"
+          justify="space-between"
+        >
+          <Flex>
+            <h4>{address.split(0, 6)}..</h4>
+            <Box>
+              <Flex>
+                <div>Fee: </div>
+                <div>Min Days: </div>
+              </Flex>
+              <div>Daily stream amount:: </div>
+            </Box>
+          </Flex>
           {renderButtons(address)}
-        </Box>
-      </GridItem>
+        </Flex>
+      </>
     );
   });
 
   const renderItems = items?.map((safe: any) => {
     return (
-      <GridItem key={safe.id} w="100%" h="40">
-        <Box boxShadow="xs" p="3" border="1px" borderColor="gray.200" alignItems="center" color="gray.300">
-          <h4>{safe.name}</h4>
-          <div>isLocked: {safe.isLocked}</div>
-          {renderButtons}
-        </Box>
-      </GridItem>
+      <>
+        <Flex
+          w="617px"
+          h="77px"
+          boxShadow="xs"
+          py="3"
+          px={0}
+          border="2px"
+          borderColor="#58E8F5"
+          borderRadius="34px"
+          alignItems="center"
+          color="#B2AFAF"
+          display="flex"
+          justify="space-between"
+        >
+          <Flex>
+            <img src="/assets/nftMock.svg" alt="nft" />
+            <Box m="auto">
+              <Flex ml={4}>
+                <Box mr={40}>Fee: </Box>
+                <Box>Min Days: </Box>
+              </Flex>
+              <Box ml={4}>Daily stream amount:: </Box>
+            </Box>
+          </Flex>
+          {renderButtons(safe.address)}
+        </Flex>
+      </>
     );
   });
 
   return (
-    <Grid templateColumns="repeat(5, 1fr)" gap={6}>
+    <>
       {items ? renderItems : renderAddresses}
       {!items && !safeAddresses && <div> No Safes Created yet </div>}
-    </Grid>
+    </>
   );
 }
