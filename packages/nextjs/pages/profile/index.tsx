@@ -14,6 +14,7 @@ import {
   Spacer,
   SimpleGrid,
   useDisclosure,
+  Flex,
 } from "@chakra-ui/react";
 import { useSafeAuth } from "~~/services/web3/safeAuth";
 
@@ -67,7 +68,7 @@ export default function Profile() {
       ) : nfts?.length ? (
         nfts.map(nft => {
           return (
-            <HStack alignItems="center" spacing="24px" key={nft.tokenId} height="80px">
+            <HStack color="#B3AFAF" alignItems="center" spacing="24px" key={nft.tokenId} height="80px">
               <Image width="50" height="50" loader={props => props.src} src={nft.media} alt="nft" />
               <div>{nft.collectionName.length > 20 ? `${nft.collectionName.slice(0, 20)}...` : nft.collectionName}</div>
               <div>{nft.floor} ETH</div>
@@ -93,42 +94,48 @@ export default function Profile() {
   );
 
   return (
-    <Stack bgColor="#253033" minHeight="100vh" padding="30px">
-      <Box>
-        <RainbowKitCustomConnectButton />
+    <Stack minHeight="100vh" padding="30px">
+      <Flex justify="space-between">
         {!provider && (
-          <Button size="xs" onClick={() => login()} className="btn" color="blue.300">
-            Auth to Create Safe
-          </Button>
+          <div onClick={() => login()}>
+            <img className="btn-image" src="/assets/auth.svg" alt="auth" />
+          </div>
         )}
         {provider && (
           <Button size="xs" onClick={() => logout()} className="btn" color="gray.300">
             Logout
           </Button>
         )}
-      </Box>
-      {isDisconnected && <Box>Connect wallet to see NFTs</Box>}
-      {!isDisconnected && (
-        <div>
-          <div className="stats shadow">
-            <Box bg="#ceac777a" p={6} mb={6}>
+        <Flex>
+          {isDisconnected && (
+            <Box color="#B3AFAF" mt={1} mr={4}>
+              Connect wallet to see NFTs
+            </Box>
+          )}
+          <RainbowKitCustomConnectButton />
+        </Flex>
+      </Flex>
+      <div>
+        {!isDisconnected && (
+          <div>
+            <Box bg="#272530" p={6} mb={6}>
               <div className="stat-title">Total value</div>
               <div className="stat-value">{totalFloor} ETH</div>
               <div className="stat-desc">Address: {address}</div>
             </Box>
           </div>
-          <Tabs mt={10} variant="enclosed">
-            <TabList>
-              <Tab>NFTs</Tab>
-              <Tab>Safes</Tab>
-            </TabList>
-            <TabPanels>
-              <TabPanel>{renderNfts}</TabPanel>
-              <TabPanel>{renderSafes}</TabPanel>
-            </TabPanels>
-          </Tabs>
-        </div>
-      )}
+        )}
+        <Tabs mt={10} variant="enclosed">
+          <TabList>
+            <Tab>NFTs</Tab>
+            <Tab>Safes</Tab>
+          </TabList>
+          <TabPanels>
+            <TabPanel>{!isDisconnected && renderNfts}</TabPanel>
+            <TabPanel>{!isDisconnected && renderSafes}</TabPanel>
+          </TabPanels>
+        </Tabs>
+      </div>
     </Stack>
   );
 }

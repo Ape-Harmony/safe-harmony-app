@@ -22,6 +22,8 @@ const SafeProvider = ({ children }: { children: ReactNode }) => {
           theme: "dark",
         },
       });
+      console.log("SAFE")
+      console.log(safe)
       setSafeAuth(safe);
     } catch (e) {
       console.log(e);
@@ -30,7 +32,9 @@ const SafeProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const login = async () => {
-    if (!safeAuth) return;
+    if (!safeAuth) {
+      await auth();
+    }
 
     const response = await safeAuth.signIn();
     console.log("SIGN IN RESPONSE: ", response);

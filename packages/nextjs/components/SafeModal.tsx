@@ -33,7 +33,6 @@ export default function SafeModal({ isOpen, onClose }: any) {
   const mockContract = "0x9fF8ed7430664CbF33317b265FDE484542152390";
 
   async function createSafe(safeData: any) {
-    
     // TODO: ALEX!! Use Safe Manager 0_0
     const ethAdapter = new EthersAdapter({ ethers, signerOrProvider: signer });
     const safeFactory = await SafeFactory.create({ ethAdapter });
@@ -53,6 +52,7 @@ export default function SafeModal({ isOpen, onClose }: any) {
     });
     // console.log(safeSdk.getAddress());
     const tx = await safeSdk.createEnableModuleTx("0x0847ecc9190158a77afa3f7501d9b764035bf39a");
+    await safeSdk.signTransaction(tx);
     const result = await safeSdk.executeTransaction(tx);
     console.log(result);
   }

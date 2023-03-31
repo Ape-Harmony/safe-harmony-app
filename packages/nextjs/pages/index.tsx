@@ -18,7 +18,7 @@ const Home: NextPage = () => {
       </Head>
 
       <HStack spacing={8}>
-        <Box mt={4}>
+        <Box id="stripe-root" mt={4}>
           <img src="/assets/landing.svg" alt="landing" />
           <Box mt={6} ml={20}><SafeOnRamp/></Box>
         </Box>
