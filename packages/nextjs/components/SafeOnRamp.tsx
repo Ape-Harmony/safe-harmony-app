@@ -49,7 +49,7 @@ export default function SafeOnRamp() {
   return (
     <Tooltip label="authenticate to deposit funds">
       <div>
-        <div style={isClickable} id="stripe-root" onClick={fundWallet}>
+        <div style={isClickable} onClick={fundWallet}>
           <img className="btn-image" src="/assets/btn-fund.svg" alt="landing" />
         </div>
       </div>
