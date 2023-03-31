@@ -4,8 +4,10 @@ import Head from "next/head";
 import { HStack, Box, VStack, Spacer } from "@chakra-ui/react";
 
 import List from "../components/SafeList";
+import SafeOnRamp from "../components/SafeOnRamp";
 
 import { safeMock } from "../mock";
+import { SafeOnRampKit, SafeOnRampProviderType } from '@safe-global/onramp-kit'
 
 const Home: NextPage = () => {
   return (
@@ -18,6 +20,7 @@ const Home: NextPage = () => {
       <HStack spacing={8}>
         <Box mt={4}>
           <img src="/assets/landing.svg" alt="landing" />
+          <SafeOnRamp/>
         </Box>
         <div className="pt-8">
           <Spacer />
